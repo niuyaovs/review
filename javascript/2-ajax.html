@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function myAjax(option) {
+        let xhr = new XMLHttpRequest();
+        let s = "";
+        s.toUpperCase;
+        method = option.method;
+        data = option.data;
+        if (method == "get" || method == "GET") {
+          xhr.open("GET", option.url + "?" + data, true);
+          xhr.send(null);
+        }
+        if (method == "post" || method == "POST") {
+          xhr.open("POST", option.url, true);
+          xhr.send(data);
+        }
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status > 200 && xhr.status < 300) {
+              option.success &&
+                option.success(xhr.responseText, xhr.responseXML);
+            } else {
+              option.fail && option.fail(xhr.status);
+            }
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

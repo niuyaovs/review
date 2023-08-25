@@ -12,13 +12,16 @@
       constructor() {
         this.observerList = []
       }
+      // 添加观察者
       addObserver(observer) {
         this.observerList.push(observer);
       }
+      // 移除观察者
       removeObserve(observer) {
         let i = this.observerList.findIndex(i => i.name === observer.name);
         this.observerList.splice(i, 1);
       }
+      // 通知更新
       notifyObserver(message) {
         this.observerList.forEach(i => i.update(message))
       }
