@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [2, 1, 4, 5, 3, 8, 6];
+      function Sort(arr) {
+        for (let i = 0; i < arr.length; i++) {
+          let preIndex = i - 1;
+          let current = arr[i];
+          while(preIndex>=0 && current < arr[preIndex]) {
+            arr[preIndex + 1] = arr[preIndex];
+            preIndex--
+          }
+          arr[preIndex + 1] = current;
+        }
+        return arr;
+      }
+      console.log(Sort(arr));
+    </script>
+  </body>
+</html>
