@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <script>
-    // 将qian'du
+    // 将嵌套的数组变成一层数组
+    let arr = [1, [2, 3], [2, 3, [1]]];
+    function flatArr(arr) {
+      let res = [];
+      arr.forEach(item => {
+        if (item instanceof Array) {
+          res = res.concat(flatArr(item));
+        } else {
+          res.push(item)
+        }
+      });
+      return res;
+    }
+    console.log(flatArr(arr))
+
+    function flatArr1(arr) {
+      return arr.reduce((pre, next) => {
+        if(next instanceof Array) {
+          return [...pre, ...flatArr1(next)]
+        }else{
+          return [...pre, next]
+        }
+      }, [])
+    }
+    console.log(flatArr1(arr))
   </script>
 </body>
+
 </html>
