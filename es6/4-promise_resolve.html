@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const resolve = function (value) {
+      // 首先判断value是不是promise对象
+      // 如果不是promise对象，判断value中是不是包含then方法，如果包含则采用then的状态
+      // 如果是普通的值直接返回值
+      if (value instanceof Promise) {
+        return value
+      } else if (value instanceof Object && 'then' in value) {
+        return new Promise((resolve, reject) => {
+          value.then(resolve, reject);
+        })
+      }
+      return new Promise((resolve, reject) => {
+        resolve(value);
+      })
+    }
+  </script>
+</body>
+
+</html>
