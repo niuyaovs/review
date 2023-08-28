@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [2, 1, 4, 5, 3, 8, 6];
+      function insertSort() {
+        var len = arr.length;
+        let pre, current;
+        for (var i = 1; i < len; i++) {
+          pre = i - 1;
+          current = arr[i];
+          while (pre >= 0 && current < arr[pre]) {
+            arr[pre + 1] = arr[pre];
+            pre--;
+          }
+          arr[pre + 1] = current;
+        }
+      }
+      function shellSort() {
+        var gap = 1;
+        var len = arr.length;
+        while (gap < len / 3) {
+          gap = gap * 3 + 1;
+        }
+        while (gap > 1) {
+          for (var i = 0; i + gap < len; i++) {
+            if (arr[i] > arr[i + gap]) {
+              [arr[i], arr[gap + i]] = [arr[gap + i], arr[i]];
+            }
+          }
+          gap = gap / 2;
+        }
+        insertSort();
+      }
+      shellSort();
+      console.log(arr);
+    </script>
+  </body>
+</html>
