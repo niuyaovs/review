@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var name = 'mm'
+    function fun(a,b) {
+      var name = 'nn'
+      return this.name;
+    }
+    Function.prototype.myCall = function(context = window) {
+      let arg = [...arguments].slice(1);
+      context.fn = this;
+      let result = context.fn(...arg);
+      delete context.fn;
+      return result
+    }
+    console.log(fun(1,2));
+    console.log(fun.call(fun));
+    console.log(fun.myCall(fun))
+  </script>
+</body>
+</html>

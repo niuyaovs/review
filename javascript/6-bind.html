@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      Function.prototype.myBind = function (context) {
+        let arg = [...arguments].slice(1);
+        context.fn = this;
+        return function () {
+          let result = context.fn(...arg, ...arguments);
+          delete context.fn;
+          return result;
+        };
+      };
+
+      var name = "window";
+      let obj = {
+        name: "obj",
+      };
+      function fun(a, b) {
+        return this.name + " " + a + b;
+      }
+      console.log(fun(1,2));
+      console.log(fun.bind(obj)(1,2));
+      console.log(fun.myBind(obj)());
+    </script>
+  </body>
+</html>
