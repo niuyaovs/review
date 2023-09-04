@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 有一个成功或失败就返回，如果传了多个promise对象，以第一个完成的promise对象为准
+    const race = function (promises) {
+      return new Promise((reslove, reject) => {
+        if(promises instanceof Array) {
+          if(promises.length > 0) {
+            promises.forEach(item => {
+              ProcessingInstruction.reslove(item).then(reslove, reject);
+            })
+          }
+        } else {
+          return reject(new TypeError('Argument is not iterable'))
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
