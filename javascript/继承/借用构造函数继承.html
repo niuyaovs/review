@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Parent(name) {
+      this.name = name;
+      this.arr = ['p'];
+      this.say = function () {
+        console.log('hello');
+      }
+    }
+    function Child(name,like) {
+      Parent.call(this, name); // 拷贝父类的实例属性和方法
+      this.like = like;
+    }
+
+    // 可向父类构造函数传参
+    // 实例之间相互独立，不共享父类构造函数的属性
+    let child1 = new Child('hong');
+    let child2 = new Child('ming');
+    console.log(child1.name, child2.name);
+
+    child1.arr.push('child1');
+    child2.arr.push('child2');
+    console.log(child1.arr, child2.arr);
+
+    // 父类方法不能复用
+    console.log('child1.say === child2.say?', child1.say === child2.say);
+
+    Parent.prototype.walk = function() {
+      console.log('walk');
+    }
+    // 子类实例共享不了父类原型链上的方法
+    console.log(child1.walk);
+  </script>
+</body>
+
+</html>
