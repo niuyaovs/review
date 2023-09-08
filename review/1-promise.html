@@ -10,14 +10,14 @@
 <body>
   <script>
     class MyPromise {
-      static PEDDING = 'pedding';
-      static FULFILLED = 'fulfilled';
-      static REJECTED = 'rejected';
+      static PEDDING = 'pedding'
+      static FULFILLED = 'fulfilled'
+      static REJECTED = 'rejected'
       constructor(fun) {
         this.promiseState = MyPromise.PEDDING;
         this.promiseResult = null;
-        this.onFulfilledCallback = [];
-        this.onRejectedCallback = [];
+        this.onFulfilledCallbacks = [];
+        this.onRejectedCallbacks = [];
         try {
           fun(this.resolve.bind(this), this.reject.bind(this));
         } catch (err) {
@@ -29,7 +29,7 @@
           setTimeout(() => {
             this.promiseState = MyPromise.FULFILLED;
             this.promiseResult = result;
-            this.onFulfilledCallback.forEach(callback => callback());
+            this.onFulfilledCallbacks.forEach(callback => callback(result));
           })
         }
       }
@@ -38,17 +38,19 @@
           setTimeout(() => {
             this.promiseState = MyPromise.REJECTED;
             this.promiseResult = reason;
-            this.onRejectedCallback.forEach(callback => callback());
+            this.onRejectedCallbacks.forEach(callback => callback(reason));
           })
         }
       }
       then(onFulfilled, onRejected) {
         onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : value => value;
-        onRejected = typeof onRejected == 'function' ? onRejected : reason => { throw reason };
+        onRejected = typeof onRejected == 'function' ? onRejected : reason => {
+          throw reason;
+        }
         return new MyPromise(() => {
           if (this.promiseState == MyPromise.PEDDING) {
-            this.onFulfilledCallback.push(onFulfilled);
-            this.onRejectedCallback.push(onRejected);
+            this.onFulfilledCallbacks.push(onFulfilled);
+            this.onRejectedCallbacks.push(onRejected);
           }
           if (this.promiseState == MyPromise.FULFILLED) {
             setTimeout(() => {
@@ -62,7 +64,18 @@
           }
         })
       }
+      catch(onRejected) {
+        return this.then(undefined, onRejected)
+      }
+      finally(callback) {
+        return this.then(callback, callback);
+      }
     }
+    let myPromises = new MyPromise((resolve, reject) => {
+      resolve('成功');
+    })
+    console.log('myPromises', myPromises);
+    myPromises.then(res => console.log('res', res))
   </script>
 </body>
 

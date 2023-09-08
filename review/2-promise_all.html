@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,3 +35,40 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const all = function (promises) {
+      return new Promise((resolve, reject) => {
+        if (promises instanceof Array) {
+          if (promises.length == 0) return resolve(promises);
+          let count =0;
+          let res = [];
+          promises.forEach((item, index) => {
+            Promise.resolve(item).then((value) => {
+              count++;
+              res[index] = value;
+              index == promises.length && resolve(promises);
+            }, err => {
+              reject(err);
+            })
+          })
+        } else {
+          return reject(new TypeError('Argument is not iterable'));
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
+>>>>>>> f7b24bc8f852b78f871d232ef46ad3bc2a3219a9

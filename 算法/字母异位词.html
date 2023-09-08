@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let s = "abbcabc"
+    let p = "abc";
+    computedTimes = function (str) {
+      let map = {};
+      for (let i = 0; i < str.length; i++) {
+        if (str[i] in map) {
+          map[str[i]]++
+        } else {
+          map[str[i]] = 1;
+        }
+      }
+      return map;
+    }
+    var findAnagrams = function (s, p) {
+      if (p.length > s.length) return []
+      let l = 0, r = p.length - 1;
+      let map = computedTimes(p);
+      let res = [];
+      while (r < s.length) {
+        let str = s.substring(l, r + 1);
+        let flag = true;
+        let map1 = {}
+        for (let i = 0; i < str.length; i++) {
+          if(!str[i] in map) flag = false;
+          else {
+            if(str[i] in map1) map1[str[i]]++
+            else map1[str[i]] = 1
+          }
+        }
+        for(let key in map) {
+          if(map[key]!=map1[key]) flag = false;
+        }
+        if (flag) res.push(l);
+        l++;
+        r++;
+      }
+      return res;
+    };
+    console.log(findAnagrams(s, p));
+  </script>
+</body>
+
+</html>

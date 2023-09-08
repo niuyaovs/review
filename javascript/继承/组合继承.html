@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Parent(name) {
+			this.name = name;
+			this.arr = [];
+		}
+    Parent.prototype.say = function() {
+			console.log('hello');
+		}
+		function Child(name, like) {
+      Parent.call(this, name);
+			this.like = like;
+		}
+    // Child.prototype = new Parent();
+    // 为了解决****所述的问题将上面注释代码改为
+    Child.prototype = Parent.prototype;
+    Child.prototype.constructor = Child;
+
+    // 可向父类构造函数传参
+    let child1 = new Child('hong');
+    let child2 = new Child('ming');
+    console.log(child1.name, child2.name);
+
+    // 可复用父类构造函数原型上的方法
+    child1.say();
+    console.log(child1.say === child2.say);
+
+    // 不共享父类的引用属性
+    child1.arr.push('child1')
+    console.log(child1.arr,child2.arr);
+
+    // ****由于调用了两次父类的构造方法，会存在多余的伊份父类实例属性
+    console.log(child1)
+  </script>
+</body>
+</html>

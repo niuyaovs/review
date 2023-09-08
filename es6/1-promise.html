@@ -71,14 +71,11 @@
         return this.then(callback, callback);
       }
     }
-    let originPromise = new Promise((resolve, reject) => {
-      resolve('成功');
-    })
-    console.log('originPromise', Promise.prototype)
     let myPromises = new MyPromise((resolve, reject) => {
       resolve('成功');
     })
-    console.log('myPromise', MyPromise.prototype)
+    console.log('myPromises', myPromises);
+    myPromises.then(res => console.log('res', res))
   </script>
 </body>
 

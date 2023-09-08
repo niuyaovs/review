@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		function Parent(name) {
+			this.name = name;
+			this.arr = [];
+		}
+		Parent.prototype.say = function() {
+			console.log('hello');
+		}
+		function Child(like) {
+			this.like = like;
+		}
+		Child.prototype = new Parent();  // 将自己的原型挂载到父级实例上去，将父级和子级用原型链连接起来
+		Child.prototype.constructor = Child // 修正constructor指向
+
+		// 缺点一：不能向父类构造函数传参
+		let child = new Child('like');
+		let child2 = new Child('child2')
+		child.say();
+		let parent = new Parent('baba');
+		parent.arr.push('parent');
+		console.log(parent.arr);
+
+		// 缺点二：子类实例共享了父类构造函数的属性，这样修改其中一个子类实例的属性，其他的子类实例也会受到影响
+		child.arr.push('child');
+		console.log(child.arr);
+		console.log(child2.arr);
+	</script>
+</body>
+
+</html>

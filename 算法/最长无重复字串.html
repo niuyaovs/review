@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let s = "abcabcbb"
+        var lengthOfLongestSubstring = function (s) {
+            let set = new Set();
+            let r = -1, len = 0;
+            let n = s.length;
+            for(let i=0;i<n;i++) {
+                if(i != 0) {
+                    set.delete(s.charAt(i - 1));
+                }
+                while(r+1<n && !set.has(s.charAt(r+1))) {
+                    set.add(s.charAt(r+1));
+                    r++;
+                }
+                len = Math.max(len, r - i + 1);
+            }
+            return len;
+        };
+        console.log(lengthOfLongestSubstring(s));
+    </script>
+</body>
+
+</html>
