@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Subject {
+      constructor() {
+        this.observerList = [];
+      }
+      addObserver(observer) {
+        this.observerList.push(observer);
+      }
+      removeObserve(observer) {
+        let i = this.observerList.findIndex(i => i.name == observer.name);
+        this.observerList.splice(i, 1);
+      }
+      notifyObserver(message) {
+        this.observerList.forEach(i => i.update(message));
+      }
+    }
+    class Watcher {
+      constructor(name) {
+        this.name = name;
+      }
+      update(message) {
+        console.log(this.name + message);
+      }
+    }
+    class Observe {
+      constructor() {
+        this.message = {}
+      }
+      on(type, callback) {
+        this.message[type] = this.message[type] ? this.message[type].push(callback) : [callback]
+      }
+      emit(type) {
+        if(this.message[type]) {
+          this.message[type].forEach(callback => callback());
+        }
+      }
+      off(type, callback) {
+        if(this.message[type]) {
+          if(callback) {
+            this.message[type].filter(callback=>callback!==callback);
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

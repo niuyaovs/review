@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let arr = [2,1,1,334,33,2,213];
+    console.log(Array.from(new Set(arr)))
+
+    console.log(arr.filter((item, index) => {
+        return arr.indexOf(item) === index
+    }))
+
+    let newArr = [];
+    arr.forEach(item => {
+      !newArr.includes(item) ? newArr.push(item) : '';
+    })
+    console.log(newArr)
+
+    newArr = [];
+    arr.forEach(item => {
+      newArr.indexOf(item) == -1 ? newArr.push(item) : '';
+    })
+    console.log(newArr)
+
+    for(let i=0;i<arr.length;i++) {
+      for(let j=i+1;j<arr.length;j++) {
+        if(arr[i] == arr[j]) arr.splice(j,1)
+      }
+    }
+    console.log(arr.map(item =>  item))
+  </script>
+</body>
+</html>

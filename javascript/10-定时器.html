@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function myInterVal(func, delay) {
+      let ids = [];
+      function fun() {
+        let id = setTimeout(() => {
+          func();
+          fun();
+        }, delay)
+        ids.push(id);
+      }
+      fun();
+      return ids;
+    }
+    function myClearInterVal(ids) {
+      ids.forEach(id => {
+        clearTimeout(id);
+      });
+    }
+    // let ids = myInterVal(function() {
+    //   console.log('hello')
+    // },500);
+    // setTimeout(() => {
+    //   myClearInterVal(ids)
+    // }, 3000)
+
+    function myInterVal2(func, delay, count = 5) {
+      function fun() {
+        if (count > 0) {
+          setTimeout(() => {
+            func();
+            fun();
+          }, delay);
+          count--;
+        }
+      }
+      fun();
+    }
+    myInterVal2(function () {
+      console.log('hello')
+    }, 500);
+  </script>
+</body>
+
+</html>

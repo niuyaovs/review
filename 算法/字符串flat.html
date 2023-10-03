@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let str = "[ab2[c]]";
+    function flat(str) {
+      if (!str.includes('[')) {
+        return str;
+      }
+      let len = str.length;
+      let stack = "", last;
+      for (let i = 0; i < len; i++) {
+        if (str[i] == '[') {
+          let num = 1;
+          for (let j = i + 1; j < len; j++) {
+            if (str[j] == '[') num++;
+            if (str[j] == ']') num--;
+            if (num == 0) { last = j; break; }
+            stack = stack + str[j]
+          }
+          let pre = i == 0 ? 1 : str[i - 1];
+          let tem = stack;
+          for (let time = 0; time < pre - 1; time++) {
+            stack += tem;
+          }
+          return flat(stack + str.slice(last + 1, len));
+        }
+      }
+    }
+    console.log(flat(str))
+  </script>
+</body>
+
+</html>

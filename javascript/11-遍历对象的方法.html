@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let sym = Symbol(1)
+    let obj = {
+      name: 'ny',
+      true: 21,
+      sym: Symbol(2)
+    }
+    obj[sym] = 'dwjkq'
+    console.log(Object.keys(obj))
+    console.log(Object.values(obj))
+    console.log(Object.entries(obj))
+    console.log(Object.getOwnPropertyNames(obj))
+    console.log(Object.getOwnPropertySymbols(obj))
+    console.log(Reflect.ownKeys(obj))
+  </script>
+</body>
+
+</html>
