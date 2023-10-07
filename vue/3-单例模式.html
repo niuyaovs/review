@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const Single = (function() {
+        let instance = null;
+        function Single(name) {
+          this.name = name;
+        }
+        return function(name) {
+          if(!instance) {
+            instance = new Single(name);
+          }
+          return instance;
+        }
+      })()
+      var oA = new Single("hi");
+      var oB = new Single("hello");
+      console.log(oA); // Single {name: 'hi'}
+      console.log(oB); // Single {name: 'hi'}
+      console.log(oB === oA); // true
+    </script>
+  </body>
+</html>
