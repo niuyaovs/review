@@ -19,6 +19,7 @@
         und: undefined,
         sym: Symbol(1),
         fun: function () {
+          this.a = 2;
           return 2;
         },
         date: new Date(),
@@ -48,7 +49,7 @@
     }
     console.log(deepClone(obj));
 
-
+    
     // function deepCopy(data, hash = new WeakMap()) {
     //   if (typeof data !== 'object' || data === null) {
     //     throw new TypeError('传入参数不是对象')
